@@ -1,0 +1,6 @@
+DecraftEnchants: true
+UseLuckAttribute: true
+EnchantmentDecraftChance: .20
+PercentOfEnchantmentsDecrafted: .20
+BlacklistedItems:
+  - minecraft:bedrock
