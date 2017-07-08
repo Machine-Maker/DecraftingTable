@@ -270,7 +270,8 @@ Listener, CommandExecutor {
 										}
 									}
 									if (eBook != null) {
-										if (!eBook.getEnchantments().isEmpty()) {
+										EnchantmentStorageMeta meta = (EnchantmentStorageMeta) eBook.getItemMeta();
+										if (!meta.getStoredEnchants().isEmpty()) {
 											d.getPlayer().getInventory().addItem(eBook);
 										}
 									}
