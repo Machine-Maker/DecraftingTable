@@ -176,7 +176,7 @@ Listener, CommandExecutor {
 										for (Enchantment e : enchants.keySet()) {
 											for (int i = 1 ; i <= enchants.get(e); i++) {
 												if (Math.random() < percentEnchantsDecrafted) {
-													meta.addEnchant(e, i, true);
+													meta.addStoredEnchant(e, i, true);
 												}
 											}
 										}
