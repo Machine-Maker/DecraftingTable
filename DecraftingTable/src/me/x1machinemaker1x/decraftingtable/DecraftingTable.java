@@ -3,6 +3,7 @@ package me.x1machinemaker1x.decraftingtable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,6 +29,7 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.x1machinemaker1x.decraftingtable.Updater.UpdateType;
 import me.x1machinemaker1x.decraftingtable.events.InventoryClick;
 import me.x1machinemaker1x.decraftingtable.events.PlayerInteract;
 import mkremins.fanciful.FancyMessage;
@@ -43,11 +45,15 @@ Listener, CommandExecutor {
 		return instance;
 	}
 	
+	private boolean checkForUpdates;
+	private boolean downloadUpdates;
 	static boolean decraftEnchants;
 	static boolean useLuckAttribute;
 	static double enchantDecraftChance;
 	static double percentEnchantsDecrafted;
 	static List<String> bannedItems;
+	
+	Logger logger;
 	
 	ItemStack barrier;
 	List<Integer> rs;
@@ -59,6 +65,8 @@ Listener, CommandExecutor {
 		
 		instance = this;
 		
+		logger = Bukkit.getLogger();
+				
 		getCommand("decraft").setExecutor(this);
 		
 		DecraftingTableRecipe.createRecipe(this);
@@ -66,11 +74,64 @@ Listener, CommandExecutor {
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 		
+		
+		checkForUpdates = getConfig().getBoolean("CheckForUpdates");
+		downloadUpdates = getConfig().getBoolean("DownloadUpdats");
 		decraftEnchants = getConfig().getBoolean("DecraftEnchants");
 		useLuckAttribute = getConfig().getBoolean("UseLuckPotions");
 		enchantDecraftChance = getConfig().getDouble("EnchantmentDecraftChance");
 		percentEnchantsDecrafted = getConfig().getDouble("PercentOfEnchantmentsDecrafted");
 		bannedItems = getConfig().getStringList("BlacklistedItems");
+		
+		//UPDATE CHECKER
+		UpdateType type = null;
+		if (checkForUpdates) {
+			if (downloadUpdates) {
+				type = UpdateType.DEFAULT;
+			}
+			else {
+				type = UpdateType.NO_DOWNLOAD;
+			}
+		}
+		if (type != null) {
+			Updater updater = new Updater(this, 271134, this.getFile(), type, true);
+			switch (updater.getResult()) {
+			case SUCCESS:
+				logger.info("The newest version of DecraftingTable has been successfully downloaded!");
+				break;
+			case DISABLED:
+				logger.info("Automatic updating for DecraftingTable has been disabled by a server administrator!");
+				break;
+			case FAIL_APIKEY:
+				logger.severe("The API key for DecraftingTable has been improperly setup!");
+				break;
+			case FAIL_BADID:
+				logger.severe("The project ID provided by the plugin is invalid and does not exist on dev.bukkit.org!");
+				break;
+			case FAIL_DBO:
+				logger.severe("For some reason, the plugin was unable to contact dev.bukkit.org!");
+				break;
+			case FAIL_DOWNLOAD:
+				logger.severe("A new version of DecraftingTable was found but the plugin was unable to download the new version!");
+				break;
+			case FAIL_NOVERSION:
+				logger.severe("The file found of dev.bukkit.org did not contain a recognizable version!");
+				break;
+			case NO_UPDATE:
+				logger.info("No update was found and nothing was downloaded!");
+				break;
+			case UPDATE_AVAILABLE:
+				logger.info("An update was found but nothing was downloaded becuase updates are disabled in the config.yml file!");
+				logger.info("You can download the new update here: " + updater.getLatestFileLink());
+				break;
+			default:
+				logger.warning("This should never happen :)");
+				break; 
+			}
+		}
+		else {
+			logger.info("Version checking and automatic downloads are disabled in the config!");
+		}
 		
 		getServer().getPluginManager().registerEvents(this, this);
 		getServer().getPluginManager().registerEvents(new InventoryClick(), this);
@@ -82,7 +143,7 @@ Listener, CommandExecutor {
 		barrier.setItemMeta(im);
 		
 		rs = new ArrayList<Integer>();
-		rs.add(11); rs.add(12); rs.add(13); rs.add(20); rs.add(21); rs.add(22); rs.add(29); rs.add(30); rs.add(31);
+		rs.add(11); rs.add(12); rs.add(13); rs.add(18); rs.add(20); rs.add(21); rs.add(22); rs.add(29); rs.add(30); rs.add(31);
 		
 		decrafts = new ArrayList<Decraft>();
 		toRemove = new ArrayList<Decraft>();
@@ -272,7 +333,7 @@ Listener, CommandExecutor {
 									if (eBook != null) {
 										EnchantmentStorageMeta meta = (EnchantmentStorageMeta) eBook.getItemMeta();
 										if (!meta.getStoredEnchants().isEmpty()) {
-											d.getPlayer().getInventory().addItem(eBook);
+											invView.setItem(18, eBook);
 										}
 									}
 									eBook = null;

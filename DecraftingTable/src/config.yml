@@ -1,3 +1,5 @@
+CheckForUpdates: true
+DownloadUpdates: true
 DecraftEnchants: true
 UseLuckAttribute: true
 EnchantmentDecraftChance: .20
