@@ -65,7 +65,7 @@ Listener, CommandExecutor {
 		
 		instance = this;
 		
-		logger = Bukkit.getLogger();
+		logger = this.getLogger();
 				
 		getCommand("decraft").setExecutor(this);
 		
@@ -76,7 +76,7 @@ Listener, CommandExecutor {
 		
 		
 		checkForUpdates = getConfig().getBoolean("CheckForUpdates");
-		downloadUpdates = getConfig().getBoolean("DownloadUpdats");
+		downloadUpdates = getConfig().getBoolean("DownloadUpdates");
 		decraftEnchants = getConfig().getBoolean("DecraftEnchants");
 		useLuckAttribute = getConfig().getBoolean("UseLuckPotions");
 		enchantDecraftChance = getConfig().getDouble("EnchantmentDecraftChance");

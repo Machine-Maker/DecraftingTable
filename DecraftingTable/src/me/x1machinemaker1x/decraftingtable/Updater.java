@@ -583,7 +583,6 @@ public class Updater {
         final String title = this.versionName;
         if (this.type != UpdateType.NO_VERSION_CHECK) {
             final String localVersion = this.plugin.getDescription().getVersion();
-            this.plugin.getLogger().info(title);
             if (title.split(DELIMETER).length >= 2) {
                 // Get the newest file's version number
                 final String remoteVersion = title.split(DELIMETER)[title.split(DELIMETER).length - 1].split(" ")[0];
@@ -633,7 +632,12 @@ public class Updater {
      * @return true if Updater should consider the remote version an update, false if not.
      */
     public boolean shouldUpdate(String localVersion, String remoteVersion) {
-        return !localVersion.equalsIgnoreCase(remoteVersion);
+    	String[] local = localVersion.split("\\.");
+    	String[] remote = remoteVersion.split("\\.");
+    	if ((Integer.valueOf(remote[2]) > Integer.valueOf(local[2])) || (Integer.valueOf(remote[1]) > Integer.valueOf(local[1])) || (Integer.valueOf(remote[0]) > Integer.valueOf(local[0])))
+    		return true;
+    	else 
+    		return false;
     }
 
     /**
