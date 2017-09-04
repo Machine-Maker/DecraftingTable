@@ -18,11 +18,11 @@ public class DecraftingTableRecipe {
 		sm.setDisplayName(ChatColor.RESET + ChatColor.WHITE.toString() + "Decrafting Table");
 		table.setItemMeta(sm);
 		ShapedRecipe r = new ShapedRecipe(new NamespacedKey(pl, "DecraftingTable"), table);
-		r.shape("!^!", "~Â¢~", "~~~");
+		r.shape("!^!", "~¢~", "~~~");
 		r.setIngredient('!', Material.IRON_INGOT);
 		r.setIngredient('^', Material.DIAMOND);
 		r.setIngredient('~', Material.WOOD);
-		r.setIngredient('Â¢', Material.WORKBENCH);
+		r.setIngredient('¢', Material.WORKBENCH);
 		pl.getServer().addRecipe(r);
 	}
 
