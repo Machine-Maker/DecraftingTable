@@ -143,7 +143,7 @@ Listener, CommandExecutor {
 		barrier.setItemMeta(im);
 		
 		rs = new ArrayList<Integer>();
-		rs.add(11); rs.add(12); rs.add(13); rs.add(18); rs.add(20); rs.add(21); rs.add(22); rs.add(29); rs.add(30); rs.add(31);
+		rs.add(11); rs.add(12); rs.add(13); rs.add(20); rs.add(21); rs.add(22); rs.add(29); rs.add(30); rs.add(31); rs.add(18); 
 		
 		decrafts = new ArrayList<Decraft>();
 		toRemove = new ArrayList<Decraft>();
