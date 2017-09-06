@@ -632,8 +632,28 @@ public class Updater {
      * @return true if Updater should consider the remote version an update, false if not.
      */
     public boolean shouldUpdate(String localVersion, String remoteVersion) {
-    	String[] local = localVersion.split("\\.");
-    	String[] remote = remoteVersion.split("\\.");
+    	if (remoteVersion.endsWith(".jar")) { //gets rid of the .jar extension in case I forgot to leave it off
+    		remoteVersion = remoteVersion.replace(".jar", "");
+    	}
+    	
+    	String[] local = new String[3];
+    	String[] remote = new String[3];
+    	local[0] = localVersion.split("\\.")[0]; local[1] = localVersion.split("\\.")[1];
+    	remote[0] = remoteVersion.split("\\.")[0]; remote[1] = remoteVersion.split("\\.")[1];
+    	
+    	if (localVersion.split("\\.").length == 2) {
+    		local[2] = "0";
+    	}
+    	else {
+    		local[2] = localVersion.split("\\.")[2];
+    	}
+    	if (remoteVersion.split("\\.").length == 2) {
+    		remote[2] = "0";
+    	}
+    	else {
+    		remote[2] = remoteVersion.split("\\.")[2];
+    	}
+  
     	if ((Integer.valueOf(remote[2]) > Integer.valueOf(local[2])) || (Integer.valueOf(remote[1]) > Integer.valueOf(local[1])) || (Integer.valueOf(remote[0]) > Integer.valueOf(local[0])))
     		return true;
     	else 
