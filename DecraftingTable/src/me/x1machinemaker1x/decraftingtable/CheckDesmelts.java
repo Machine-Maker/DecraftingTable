@@ -35,7 +35,6 @@ public class CheckDesmelts extends BukkitRunnable {
 				bItems.add(Material.matchMaterial(i));
 			}
 			for (Desmelt d : main.getDesmelts()) {
-				System.out.println(main.getDesmelts().size());
 				InventoryView invView = d.getPlayer().getOpenInventory();
 				if (!invView.getTitle().equals(ChatColor.BLUE + "Desmelter")) { //Checks if player is still in desmelt table.
 					toRemove.add(d);
