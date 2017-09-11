@@ -11,7 +11,7 @@ public class InventoryClick implements Listener {
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		if (!e.getInventory().getName().equals(ChatColor.BLUE + "Decrafting Table")) return;
+		if (!e.getInventory().getName().equals(ChatColor.BLUE + "Decrafting Table") && !e.getInventory().getName().equals(ChatColor.BLUE + "Desmelter")) return;
 		if (e.getCurrentItem() == null) return;
 		if (e.getCurrentItem().equals(DecraftingTable.getInstance().getBarrier())) {
 			e.setCancelled(true);

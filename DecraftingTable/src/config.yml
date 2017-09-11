@@ -4,5 +4,10 @@ DecraftEnchants: true
 UseLuckAttribute: true
 EnchantmentDecraftChance: .20
 PercentOfEnchantmentsDecrafted: .20
+DesmeltTimer: true
 BlacklistedItems:
-  - minecraft:bedrock
+    Decrafting:
+        - "iron_block"
+    Desmelting:
+        - "gold_nugget"
+        - "iron_nugget"
