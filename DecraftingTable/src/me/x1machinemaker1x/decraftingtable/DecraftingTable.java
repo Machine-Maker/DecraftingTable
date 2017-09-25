@@ -63,6 +63,14 @@ public class DecraftingTable extends JavaPlugin implements CommandExecutor {
 		
 		Options.updateValues();
 		
+		if (Options.USE_METRICS.bValue) {
+			Metrics metrics =  new Metrics(this);
+			this.getLogger().info("Plugin metrics have been enabled!");
+		}
+		else {
+			this.getLogger().info("Plugin metrics have been disabled");
+		}
+		
 		//UPDATE CHECKER
 		UpdateType type = null;
 		if (Options.CHECK_FOR_UPDATES.bValue) {
