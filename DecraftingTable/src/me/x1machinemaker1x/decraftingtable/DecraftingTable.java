@@ -24,6 +24,7 @@ import me.x1machinemaker1x.decraftingtable.utils.Decraft;
 import me.x1machinemaker1x.decraftingtable.utils.DecraftingTableRecipe;
 import me.x1machinemaker1x.decraftingtable.utils.Desmelt;
 import me.x1machinemaker1x.decraftingtable.utils.DesmelterRecipe;
+import me.x1machinemaker1x.decraftingtable.utils.Metrics;
 import mkremins.fanciful.FancyMessage;
 
 public class DecraftingTable extends JavaPlugin implements CommandExecutor {
@@ -43,6 +44,7 @@ public class DecraftingTable extends JavaPlugin implements CommandExecutor {
 	List<Decraft> decrafts;
 	List<Desmelt> desmelts;
 	
+	@SuppressWarnings("unused")
 	public void onEnable() {
 		
 		instance = this;
@@ -51,7 +53,9 @@ public class DecraftingTable extends JavaPlugin implements CommandExecutor {
 				
 		getCommand("decraft").setExecutor(this);
 		
-		DecraftingTableRecipe.createRecipe(this);
+		if (!DecraftingTableRecipe.createRecipe(this)) {
+			return;
+		}
 		DesmelterRecipe.createRecipe(this);
 		
 		getConfig().options().copyDefaults(true);
@@ -213,6 +217,7 @@ public class DecraftingTable extends JavaPlugin implements CommandExecutor {
 	}
 	
 	public enum Options {
+		USE_METRICS("UseMetrics", "bool"),
 		CHECK_FOR_UPDATES("CheckForUpdates", "bool"),
 		DOWNLOAD_UPDATES("DownloadUpdates", "bool"),
 		DECRAFT_ENCHANTS("DecraftEnchants", "bool"),

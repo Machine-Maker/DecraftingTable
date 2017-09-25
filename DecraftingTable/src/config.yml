@@ -1,3 +1,4 @@
+UseMetrics: true
 CheckForUpdates: true
 DownloadUpdates: true
 DecraftEnchants: true
@@ -11,3 +12,12 @@ BlacklistedItems:
     Desmelting:
         - "gold_nugget"
         - "iron_nugget"
+CraftingRecipes:
+    DecraftingTable:
+        Line1: "iron_ingot|diamond|iron_ingot"
+        Line2: "wood|workbench|wood"
+        Line3: "wood|wood|wood"
+    Desmelter:
+        Line1: "iron_ingot|diamond|iron_ingot"
+        Line2: "wood|furnace|wood"
+        Line3: "wood|wood|wood"
