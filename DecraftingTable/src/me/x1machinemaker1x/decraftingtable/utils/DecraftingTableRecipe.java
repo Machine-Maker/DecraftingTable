@@ -27,6 +27,7 @@ public class DecraftingTableRecipe {
 			
 			if (itemName.equalsIgnoreCase("null")) {
 				r.setIngredient((char) (i+1), Material.AIR);
+				continue;
 			}
 			
 			if (itemName.contains(":")) {
@@ -46,7 +47,7 @@ public class DecraftingTableRecipe {
 						System.out.println("test2");
 						return false;
 					}
-					r.setIngredient((char) (i+1), item.getData());
+					r.setIngredient(chars[i], item.getData());
 				}
 			}
 			else {
@@ -64,8 +65,9 @@ public class DecraftingTableRecipe {
 		}
 		
 		for (ItemStack itemStack : r.getIngredientMap().values()) {
-			System.out.println(itemStack.getType().name());
+			System.out.println(itemStack.getType().name() + ":" + itemStack.getDurability());
 		}
+		pl.getServer().addRecipe(r);
 		return true;
 	}
 }
