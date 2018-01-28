@@ -34,7 +34,6 @@ public class DecraftingTableRecipe {
 				if (Material.matchMaterial(itemName.split(":")[0]) == null) {
 					pl.getLogger().info("The configuration file is not set up correctly! Disabling plugin!");
 					pl.getPluginLoader().disablePlugin(pl);
-					System.out.println("test1");
 					return false;
 				}
 				else {
@@ -44,7 +43,6 @@ public class DecraftingTableRecipe {
 					} catch (NumberFormatException e) {
 						pl.getLogger().info("The configuration file is not set up correctly! Disabling plugin!");
 						pl.getPluginLoader().disablePlugin(pl);
-						System.out.println("test2");
 						return false;
 					}
 					r.setIngredient(chars[i], item.getData());
@@ -54,19 +52,14 @@ public class DecraftingTableRecipe {
 				if (Material.matchMaterial(itemName) == null) {
 					pl.getLogger().info("The configuration file is not set up correctly! Disabling plugin!");
 					pl.getPluginLoader().disablePlugin(pl);
-					System.out.println("test3: " + itemName);
 					return false;
 				}
 				else {
-					System.out.println(chars[i]);
 					r.setIngredient(chars[i], Material.matchMaterial(itemName));
 				}
 			}
 		}
 		
-		for (ItemStack itemStack : r.getIngredientMap().values()) {
-			System.out.println(itemStack.getType().name() + ":" + itemStack.getDurability());
-		}
 		pl.getServer().addRecipe(r);
 		return true;
 	}

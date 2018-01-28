@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -53,10 +54,9 @@ public class DecraftingTable extends JavaPlugin implements CommandExecutor {
 				
 		getCommand("decraft").setExecutor(this);
 		
-		if (!DecraftingTableRecipe.createRecipe(this)) {
+		if (!DecraftingTableRecipe.createRecipe(this) || !DesmelterRecipe.createRecipe(this)) {
 			return;
 		}
-		DesmelterRecipe.createRecipe(this);
 		
 		getConfig().options().copyDefaults(true);
 		saveConfig();
@@ -173,6 +173,9 @@ public class DecraftingTable extends JavaPlugin implements CommandExecutor {
 		else {
 			DecraftingTable.getInstance().reloadConfig();
 			Options.updateValues();
+			Bukkit.getServer().resetRecipes();
+			DecraftingTableRecipe.createRecipe(this);
+			DesmelterRecipe.createRecipe(this);
 			cs.sendMessage(ChatColor.GREEN + "The config has been reloaded!");
 			return true;
 		}
