@@ -1,0 +1,24 @@
+main: me.x1machinemaker1x.decraftingtable.DecraftingTable
+name: DecraftingTable
+version: 0.3.2
+description: Allows the decrafting of objects
+author: X1machinemaker1X
+
+commands:
+  decraft:
+    description: Main Command for DecraftingTable
+    default: true
+    aliases: [dt]
+    
+permissions:
+  decraftingtable.reload:
+    default: op
+  decraftingtable.use.decraft:
+    default: false
+  decraftingtable.use.desmelt:
+    default: false
+  decraftingtable.use.*:
+    default: op
+    children:
+      decraftingtable.use.decraft: true
+      decraftingtable.use.desmelt: true
