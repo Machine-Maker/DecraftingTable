@@ -1,0 +1,6 @@
+name: DecraftingTable
+version: ${project.version}
+main: me.machinemaker.decraftingtable.DecraftingTable
+api-version: 1.13
+authors: [Machine_Maker]
+description: Enables decrafting of various items
