@@ -9,7 +9,9 @@ public class InventoryDrag implements Listener {
 
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
-        if (Inventories.isCustom(event.getView())) {
+        Inventories inv = Inventories.which(event.getView());
+        if (inv != null) {
+            if (event.getRawSlots().size() == 1 && event.getRawSlots().contains(inv.getInputSlot())) return;
             event.setCancelled(event.getRawSlots().stream().anyMatch(slot -> slot < event.getView().getTopInventory().getSize()));
         }
     }
